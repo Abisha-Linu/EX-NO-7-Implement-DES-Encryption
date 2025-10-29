@@ -12,13 +12,32 @@ To use the Data Encryption Standard (DES) algorithm for a practical application,
 4. DES applies initial and final permutations along with 16 rounds of substitution and permutation transformations to produce ciphertext.
 
 ## Program:
+```
+from pyDes import des, PAD_PKCS5
+import binascii
+def des_encrypt(data, key):
+    cipher = des(key, padmode=PAD_PKCS5)
+    encrypted_data = cipher.encrypt(data)
+    return binascii.hexlify(encrypted_data).decode()
+def des_decrypt(encrypted_data, key):
+    cipher = des(key, padmode=PAD_PKCS5)
+    decrypted_data = cipher.decrypt(binascii.unhexlify(encrypted_data))
+    return decrypted_data.decode()
+if __name__ == "__main__":
+    text = input("Enter text to encrypt: ")
+    key = input("Enter 8-character key: ")
+    if len(key) != 8:
+        print("Error: Key must be exactly 8 characters long!")
+    else:
+        encrypted = des_encrypt(text, key)
+        print("\nEncrypted Text (in hex):", encrypted)
 
-
-
-
+        decrypted = des_decrypt(encrypted, key)
+        print("Decrypted Text:", decrypted)
+```
 ## Output:
 
+<img width="586" height="129" alt="image" src="https://github.com/user-attachments/assets/0cb1ba2c-d603-4d08-accd-19d076f6fb8b" />
 
 ## Result:
-  The program is executed successfully
-
+  The program is executed successfully.
